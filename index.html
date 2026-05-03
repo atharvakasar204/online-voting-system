@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Voting System</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 120px;
+            background: #f2f5f9;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Online Voting System</h1>
+    <p>Click below to start voting</p>
+
+    <!-- CHANGE THIS LINK -->
+    <button onclick="goToLogin()">Start Voting</button>
+</div>
+
+<script>
+function goToLogin() {
+    window.location.href = "https://your-app-link/login";
+}
+</script>
+
+</body>
+</html>
