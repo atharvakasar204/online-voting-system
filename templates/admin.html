@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h2>Admin Dashboard</h2>
+
+<p>Total Users: {{ total_users }}</p>
+<p>Verified Users: {{ verified_users }}</p>
+<p>Total Votes: {{ total_votes }}</p>
+
+<table border="1">
+<tr><th>User</th><th>Name</th><th>ID</th><th>Status</th><th>Proof</th><th>Action</th></tr>
+
+{% for u in users %}
+<tr>
+<td>{{ u[0] }}</td>
+<td>{{ u[1] }}</td>
+<td>{{ u[2] }}</td>
+<td>{{ "Verified" if u[3] else "Pending" }}</td>
+<td><a href="/uploads/{{ u[4] }}">View</a></td>
+<td>
+{% if u[3] == 0 %}
+<a href="/verify/{{ u[0] }}">Verify</a>
+{% else %}
+Done
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+<a href="/logout">Logout</a>

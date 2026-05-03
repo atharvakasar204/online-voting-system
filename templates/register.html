@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<form action="/register" method="post" enctype="multipart/form-data">
+<input name="full_name" placeholder="Full Name" required>
+<input name="username" placeholder="Username" required>
+<input type="password" name="password" placeholder="Password" required>
+<input name="phone" placeholder="Phone" required>
+<input name="age" type="number" placeholder="Age" required>
+<input name="unique_id" placeholder="Association ID" required>
+<input type="file" name="id_proof" required>
+<button>Register</button>
+</form>
+<a href="/login">Login</a>

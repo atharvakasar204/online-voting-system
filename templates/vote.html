@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h2>Vote</h2>
+<form action="/submit" method="post">
+<button name="candidate" value="A">A</button>
+<button name="candidate" value="B">B</button>
+</form>
+<a href="/logout">Logout</a>
