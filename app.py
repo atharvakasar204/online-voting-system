@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
-# ---------------- DATABASE INIT ----------------
+# ---------------- DATABASE ----------------
 def init_db():
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
@@ -38,13 +38,11 @@ def init_db():
     )
     """)
 
-    # Create admin user
+    # Admin user
     admin_pass = generate_password_hash("admin123")
     try:
-        cur.execute("""
-        INSERT INTO users (username, password, role, is_verified)
-        VALUES (?, ?, ?, ?)
-        """, ("admin", admin_pass, "admin", 1))
+        cur.execute("INSERT INTO users (username, password, role, is_verified) VALUES (?, ?, ?, ?)",
+                    ("admin", admin_pass, "admin", 1))
     except:
         pass
 
@@ -113,7 +111,7 @@ def login():
     conn = get_db()
     cur = conn.cursor()
 
-    cur.execute("SELECT password, role FROM users WHERE username=?", (username,))
+    cur.execute("SELECT password, role, has_voted FROM users WHERE username=?", (username,))
     user = cur.fetchone()
 
     if user and check_password_hash(user[0], password):
@@ -122,8 +120,12 @@ def login():
 
         if user[1] == 'admin':
             return redirect('/admin')
-        else:
-            return redirect('/vote')
+
+        if user[2] == 1:
+            return redirect('/results')
+
+        return redirect('/vote')
+
     else:
         return "Invalid login!"
 
@@ -143,7 +145,7 @@ def vote():
         return "You are not verified by admin yet!"
 
     if user[0] == 1:
-        return "You already voted!"
+        return redirect('/results')
 
     return render_template('vote.html')
 
@@ -181,7 +183,10 @@ def admin():
     conn = get_db()
     cur = conn.cursor()
 
-    cur.execute("SELECT username, full_name, unique_id, is_verified, id_proof FROM users WHERE role='user'")
+    cur.execute("""
+    SELECT username, full_name, unique_id, is_verified, has_voted, id_proof 
+    FROM users WHERE role='user'
+    """)
     users = cur.fetchall()
 
     cur.execute("SELECT COUNT(*) FROM users WHERE role='user'")
@@ -199,18 +204,13 @@ def admin():
                            verified_users=verified_users,
                            total_votes=total_votes)
 
-# ---------------- VERIFY USER ----------------
+# ---------------- VERIFY ----------------
 @app.route('/verify/<username>')
 def verify(username):
-    if session.get('role') != 'admin':
-        return redirect('/login')
-
     conn = get_db()
     cur = conn.cursor()
-
     cur.execute("UPDATE users SET is_verified=1 WHERE username=?", (username,))
     conn.commit()
-
     return redirect('/admin')
 
 # ---------------- FILE VIEW ----------------

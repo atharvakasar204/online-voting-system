@@ -1,7 +1,109 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<h2>Vote</h2>
-<form action="/submit" method="post">
-<button name="candidate" value="A">A</button>
-<button name="candidate" value="B">B</button>
-</form>
-<a href="/logout">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Your Vote</title>
+    <style>
+        /* General Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .vote-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        p.instruction {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        /* Candidate Selection */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vote-btn {
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            color: #007bff;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .vote-btn:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+        }
+
+        .vote-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Logout Link */
+        .logout-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #dc3545;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vote-container">
+        <h2>Cast Your Vote</h2>
+        <p class="instruction">Please select your preferred candidate below.</p>
+
+        <form action="/submit" method="post">
+            <button type="submit" name="candidate" value="Candidate A" class="vote-btn">
+                Candidate A
+            </button>
+            
+            <button type="submit" name="candidate" value="Candidate B" class="vote-btn">
+                Candidate B
+            </button>
+        </form>
+
+        <a href="/logout" class="logout-link">Logout</a>
+    </div>
+
+</body>
+</html>

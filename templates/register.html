@@ -1,12 +1,153 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<form action="/register" method="post" enctype="multipart/form-data">
-<input name="full_name" placeholder="Full Name" required>
-<input name="username" placeholder="Username" required>
-<input type="password" name="password" placeholder="Password" required>
-<input name="phone" placeholder="Phone" required>
-<input name="age" type="number" placeholder="Age" required>
-<input name="unique_id" placeholder="Association ID" required>
-<input type="file" name="id_proof" required>
-<button>Register</button>
-</form>
-<a href="/login">Login</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* General Page Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Form Card Container */
+        .register-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Form Layout */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 15px;
+        }
+
+        /* Make full-width fields take up both columns */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        /* File Input Styling */
+        input[type="file"] {
+            font-size: 13px;
+            padding: 8px;
+            background: #fafafa;
+            border: 1px dashed #bbb;
+            cursor: pointer;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        button {
+            grid-column: span 2;
+            background-color: #28a745;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive: Stack columns on small screens */
+        @media (max-width: 480px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            button {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Create Account</h2>
+
+        <form action="/register" method="post" enctype="multipart/form-data">
+            <!-- Full width fields -->
+            <input name="full_name" placeholder="Full Name" class="full-width" required>
+            <input name="username" placeholder="Username" class="full-width" required>
+            
+            <!-- Grid fields -->
+            <input type="password" name="password" placeholder="Password" required>
+            <input name="phone" placeholder="Phone" required>
+            <input name="age" type="number" placeholder="Age" required>
+            <input name="unique_id" placeholder="Association ID" required>
+            
+            <!-- File input area -->
+            <div class="full-width">
+                <label for="id_proof">ID Proof Document</label>
+                <input type="file" id="id_proof" name="id_proof" style="width: 100%; box-sizing: border-box;" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="/login" class="login-link">Already have an account? Login</a>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,111 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<h2>Results</h2>
-{% for r in results %}
-<p>{{ r[0] }} - {{ r[1] }}</p>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        /* General Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .results-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            border-bottom: 2px solid #007bff;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Result Item Styling */
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .candidate-name {
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .vote-count {
+            background-color: #e7f3ff;
+            color: #007bff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Home Button */
+        .home-btn {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="results-card">
+        <div class="results-header">
+            <h2>Election Results</h2>
+        </div>
+
+        <div class="results-list">
+            {% for r in results %}
+            <div class="result-item">
+                <span class="candidate-name">{{ r[0] }}</span>
+                <span class="vote-count">{{ r[1] }} Votes</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="home-btn">Back to Home</a>
+    </div>
+
+</body>
+</html>
