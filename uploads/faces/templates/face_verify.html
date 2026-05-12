@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Face Verification</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f2f5f9;
+            text-align:center;
+        }
+
+        .box{
+            width:500px;
+            background:white;
+            margin:auto;
+            margin-top:50px;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        video{
+            width:100%;
+            border-radius:10px;
+        }
+
+        button{
+            margin-top:20px;
+            padding:12px 20px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        canvas{
+            display:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Live Face Verification</h2>
+
+    <video id="video" autoplay></video>
+
+    <br>
+
+    <button onclick="capture()">
+        Capture & Verify
+    </button>
+
+    <canvas id="canvas"></canvas>
+
+    <form id="form"
+          action="/face_verify"
+          method="post">
+
+        <input type="hidden"
+               name="image_data"
+               id="image_data">
+
+    </form>
+
+</div>
+
+<script>
+
+const video = document.getElementById('video');
+
+navigator.mediaDevices.getUserMedia({
+    video:true
+})
+
+.then(stream => {
+
+    video.srcObject = stream;
+
+});
+
+function capture(){
+
+    const canvas = document.getElementById('canvas');
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const image = canvas.toDataURL('image/jpeg');
+
+    document.getElementById('image_data').value = image;
+
+    document.getElementById('form').submit();
+}
+
+</script>
+
+</body>
+</html>

@@ -1,153 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Register</title>
+
     <style>
-        /* General Page Layout */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+
+        body{
+            font-family:Arial;
+            background:#f2f5f9;
         }
 
-        /* Form Card Container */
-        .register-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
+        .box{
+            width:400px;
+            margin:auto;
+            margin-top:30px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
+        h2{
+            text-align:center;
+            margin-bottom:20px;
         }
 
-        /* Form Layout */
-        form {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two columns */
-            gap: 15px;
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:5px;
         }
 
-        /* Make full-width fields take up both columns */
-        .full-width {
-            grid-column: span 2;
+        label{
+            font-weight:bold;
         }
 
-        input {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s;
+        button{
+            width:100%;
+            padding:12px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
         }
 
-        input:focus {
-            border-color: #007bff;
+        button:hover{
+            background:#0056b3;
         }
 
-        /* File Input Styling */
-        input[type="file"] {
-            font-size: 13px;
-            padding: 8px;
-            background: #fafafa;
-            border: 1px dashed #bbb;
-            cursor: pointer;
+        .candidate-btn{
+            background:green;
         }
 
-        label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 5px;
-            display: block;
+        .candidate-btn:hover{
+            background:darkgreen;
         }
 
-        button {
-            grid-column: span 2;
-            background-color: #28a745;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
+        a{
+            text-decoration:none;
         }
 
-        button:hover {
-            background-color: #218838;
+        .login-link{
+            text-align:center;
+            margin-top:15px;
         }
 
-        .login-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .login-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive: Stack columns on small screens */
-        @media (max-width: 480px) {
-            form {
-                grid-template-columns: 1fr;
-            }
-            .full-width {
-                grid-column: span 1;
-            }
-            button {
-                grid-column: span 1;
-            }
-        }
     </style>
+
 </head>
+
 <body>
 
-    <div class="register-container">
-        <h2>Create Account</h2>
+<div class="box">
 
-        <form action="/register" method="post" enctype="multipart/form-data">
-            <!-- Full width fields -->
-            <input name="full_name" placeholder="Full Name" class="full-width" required>
-            <input name="username" placeholder="Username" class="full-width" required>
-            
-            <!-- Grid fields -->
-            <input type="password" name="password" placeholder="Password" required>
-            <input name="phone" placeholder="Phone" required>
-            <input name="age" type="number" placeholder="Age" required>
-            <input name="unique_id" placeholder="Association ID" required>
-            
-            <!-- File input area -->
-            <div class="full-width">
-                <label for="id_proof">ID Proof Document</label>
-                <input type="file" id="id_proof" name="id_proof" style="width: 100%; box-sizing: border-box;" required>
-            </div>
+    <h2>Student Registration</h2>
 
-            <button type="submit">Register</button>
-        </form>
+    <form action="/register"
+          method="post"
+          enctype="multipart/form-data">
 
-        <a href="/login" class="login-link">Already have an account? Login</a>
+        <!-- FULL NAME -->
+        <label>Full Name</label>
+
+        <input type="text"
+               name="full_name"
+               placeholder="Enter Full Name"
+               required>
+
+        <!-- USERNAME -->
+        <label>Username</label>
+
+        <input type="text"
+               name="username"
+               placeholder="Enter Username"
+               required>
+
+        <!-- PASSWORD -->
+        <label>Password</label>
+
+        <input type="password"
+               name="password"
+               placeholder="Enter Password"
+               required>
+
+        <!-- PHONE -->
+        <label>Phone Number</label>
+
+        <input type="text"
+               name="phone"
+               placeholder="Enter Phone Number"
+               required>
+
+        <!-- AGE -->
+        <label>Age</label>
+
+        <input type="number"
+               name="age"
+               placeholder="Enter Age"
+               required>
+
+        <!-- UNIQUE ID -->
+        <label>Association Unique ID</label>
+
+        <input type="text"
+               name="unique_id"
+               placeholder="Enter Unique ID"
+               required>
+
+        <!-- ID PROOF -->
+        <label>Upload ID Proof</label>
+
+        <input type="file"
+               name="id_proof"
+               required>
+
+        <!-- FACE IMAGE -->
+        <label>Upload Face Photo</label>
+
+        <input type="file"
+               name="face_image"
+               required>
+
+        <!-- REGISTER BUTTON -->
+        <button type="submit">
+
+            Register
+
+        </button>
+
+    </form>
+
+    <!-- APPLY CANDIDATE -->
+    <br>
+
+    <a href="/apply_candidate">
+
+        <button type="button"
+                class="candidate-btn">
+
+            Apply as Candidate
+
+        </button>
+
+    </a>
+
+    <!-- LOGIN LINK -->
+    <div class="login-link">
+
+        <br>
+
+        <a href="/apply_candidate>
+
+            Already have account? Login
+
+        </a>
+
     </div>
+
+</div>
 
 </body>
 </html>

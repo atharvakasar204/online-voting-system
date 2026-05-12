@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Apply Candidate</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f2f5f9;
+        }
+
+        .box{
+            width:500px;
+            margin:auto;
+            margin-top:40px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, textarea{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            margin-bottom:15px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Candidate Registration</h2>
+
+    <form action="/apply_candidate"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="text"
+               name="candidate_name"
+               placeholder="Candidate Name"
+               required>
+
+        <input type="text"
+               name="party_name"
+               placeholder="Party Name"
+               required>
+
+        <textarea name="manifesto"
+                  placeholder="Manifesto"
+                  required></textarea>
+
+        <label>Upload Candidate Photo</label>
+
+        <input type="file"
+               name="photo"
+               required>
+
+        <button type="submit">
+            Apply
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
