@@ -5,6 +5,9 @@
 
     <title>Election Results</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -17,14 +20,43 @@
         }
 
         .container{
-            width:90%;
+            width:95%;
             margin:auto;
-            margin-top:30px;
+            margin-top:80px;
         }
 
         h1{
             text-align:center;
         }
+
+        .logout-btn{
+
+            position:absolute;
+
+            top:20px;
+            right:20px;
+
+            background:#dc3545;
+
+            color:white;
+
+            padding:10px 18px;
+
+            border-radius:5px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+        }
+
+        .logout-btn:hover{
+
+            background:#b02a37;
+
+        }
+
+        /* DASHBOARD */
 
         .top{
             display:flex;
@@ -41,11 +73,28 @@
             box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
 
+        .winner{
+            background:green;
+            color:white;
+            padding:10px;
+            border-radius:10px;
+            font-size:20px;
+        }
+
+        /* CHART */
+
         .chart-box{
             background:white;
-            padding:30px;
+            padding:20px;
             border-radius:10px;
             box-shadow:0 0 10px rgba(0,0,0,0.1);
+            overflow-x:auto;
+        }
+
+        /* TABLE */
+
+        .table-container{
+            overflow-x:auto;
         }
 
         table{
@@ -54,6 +103,7 @@
             border-collapse:collapse;
             margin-top:30px;
             box-shadow:0 0 10px rgba(0,0,0,0.1);
+            min-width:400px;
         }
 
         th, td{
@@ -67,12 +117,55 @@
             color:white;
         }
 
-        .winner{
-            background:green;
-            color:white;
-            padding:10px;
-            border-radius:10px;
-            font-size:20px;
+        /* MOBILE */
+
+        @media screen and (max-width:768px){
+
+            .top{
+
+                flex-direction:column;
+
+            }
+
+            .card{
+
+                margin-bottom:15px;
+
+            }
+
+            h1{
+
+                font-size:24px;
+
+            }
+
+            .logout-btn{
+
+                top:10px;
+                right:10px;
+                padding:8px 12px;
+                font-size:14px;
+
+            }
+
+            table{
+
+                font-size:14px;
+
+            }
+
+            th, td{
+
+                padding:10px;
+
+            }
+
+            .winner{
+
+                font-size:18px;
+
+            }
+
         }
 
     </style>
@@ -80,6 +173,12 @@
 </head>
 
 <body>
+
+<a href="/logout" class="logout-btn">
+
+    Logout
+
+</a>
 
 <div class="container">
 
@@ -144,6 +243,8 @@
     </div>
 
     <!-- TABLE -->
+    <div class="table-container">
+
     <table>
 
         <tr>
@@ -166,6 +267,8 @@
         {% endfor %}
 
     </table>
+
+    </div>
 
 </div>
 
@@ -191,7 +294,7 @@ const data = [
 
 ];
 
-const ctx = document.getElementById('resultChart');
+const ctx = document.getElementById('resultChart').getContext('2d');
 
 new Chart(ctx, {
 
@@ -207,6 +310,16 @@ new Chart(ctx, {
 
             data: data,
 
+            backgroundColor: [
+
+                '#007BFF',
+                '#28a745',
+                '#ffc107',
+                '#dc3545',
+                '#6f42c1'
+
+            ],
+
             borderWidth: 1
 
         }]
@@ -214,13 +327,13 @@ new Chart(ctx, {
 
     options: {
 
-        responsive:true,
+        responsive: true,
 
         scales: {
 
             y: {
 
-                beginAtZero:true
+                beginAtZero: true
 
             }
 

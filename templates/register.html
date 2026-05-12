@@ -5,71 +5,162 @@
 
     <title>Register</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
+
+        *{
+            box-sizing:border-box;
+        }
 
         body{
             font-family:Arial;
             background:#f2f5f9;
+            margin:0;
+            padding:10px;
         }
 
-        .box{
-            width:400px;
-            margin:auto;
-            margin-top:30px;
+        .container{
+
+            width:100%;
+            max-width:420px;
+
             background:white;
-            padding:30px;
+
+            margin:auto;
+
+            padding:18px;
+
             border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+            box-shadow:0 0 8px rgba(0,0,0,0.1);
+
         }
 
         h2{
-            text-align:center;
-            margin-bottom:20px;
-        }
 
-        input{
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:5px;
+            text-align:center;
+            margin-bottom:18px;
+            font-size:22px;
+
         }
 
         label{
+
+            font-size:14px;
             font-weight:bold;
+
+        }
+
+        input{
+
+            width:100%;
+
+            padding:10px;
+
+            margin-top:5px;
+            margin-bottom:12px;
+
+            border:1px solid #ccc;
+
+            border-radius:5px;
+
+            font-size:14px;
+
         }
 
         button{
+
             width:100%;
-            padding:12px;
+
+            padding:10px;
+
             background:#007BFF;
+
             color:white;
+
             border:none;
+
             border-radius:5px;
+
+            font-size:15px;
+
             cursor:pointer;
-            font-size:16px;
+
+            margin-top:5px;
+
         }
 
         button:hover{
+
             background:#0056b3;
+
         }
 
         .candidate-btn{
+
             background:green;
+
         }
 
         .candidate-btn:hover{
-            background:darkgreen;
-        }
 
-        a{
-            text-decoration:none;
+            background:darkgreen;
+
         }
 
         .login-link{
+
             text-align:center;
             margin-top:15px;
+            font-size:14px;
+
+        }
+
+        a{
+
+            text-decoration:none;
+            color:#007BFF;
+
+        }
+
+        /* EXTRA SMALL MOBILE */
+
+        @media screen and (max-width:480px){
+
+            body{
+
+                padding:5px;
+
+            }
+
+            .container{
+
+                padding:15px;
+
+            }
+
+            h2{
+
+                font-size:20px;
+
+            }
+
+            input{
+
+                padding:9px;
+                font-size:13px;
+
+            }
+
+            button{
+
+                padding:9px;
+                font-size:14px;
+
+            }
+
         }
 
     </style>
@@ -78,77 +169,62 @@
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <h2>Student Registration</h2>
+    <h2>Registration</h2>
 
     <form action="/register"
           method="post"
           enctype="multipart/form-data">
 
-        <!-- FULL NAME -->
         <label>Full Name</label>
 
         <input type="text"
                name="full_name"
-               placeholder="Enter Full Name"
                required>
 
-        <!-- USERNAME -->
         <label>Username</label>
 
         <input type="text"
                name="username"
-               placeholder="Enter Username"
                required>
 
-        <!-- PASSWORD -->
         <label>Password</label>
 
         <input type="password"
                name="password"
-               placeholder="Enter Password"
                required>
 
-        <!-- PHONE -->
         <label>Phone Number</label>
 
         <input type="text"
                name="phone"
-               placeholder="Enter Phone Number"
                required>
 
-        <!-- AGE -->
         <label>Age</label>
 
         <input type="number"
                name="age"
-               placeholder="Enter Age"
                required>
 
-        <!-- UNIQUE ID -->
-        <label>Association Unique ID</label>
+        <label>Unique ID</label>
 
         <input type="text"
                name="unique_id"
-               placeholder="Enter Unique ID"
                required>
 
-        <!-- ID PROOF -->
-        <label>Upload ID Proof</label>
+        <label>ID Proof</label>
 
         <input type="file"
                name="id_proof"
                required>
 
-        <!-- FACE IMAGE -->
-        <label>Upload Face Photo</label>
+        <label>Face Photo</label>
 
         <input type="file"
                name="face_image"
                required>
 
-        <!-- REGISTER BUTTON -->
         <button type="submit">
 
             Register
@@ -157,7 +233,6 @@
 
     </form>
 
-    <!-- APPLY CANDIDATE -->
     <br>
 
     <a href="/apply_candidate">
@@ -171,14 +246,13 @@
 
     </a>
 
-    <!-- LOGIN LINK -->
     <div class="login-link">
 
-        <br>
+        Already have account?
 
-        <a href="/apply_candidate>
+        <a href="/login">
 
-            Already have account? Login
+            Login
 
         </a>
 

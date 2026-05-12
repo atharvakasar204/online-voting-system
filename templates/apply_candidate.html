@@ -1,83 +1,122 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply Candidate</title>
-
     <style>
-
-        body{
-            font-family:Arial;
-            background:#f2f5f9;
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f2f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
-        .box{
-            width:500px;
-            margin:auto;
-            margin-top:40px;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        .box {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
 
-        input, textarea{
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-            margin-bottom:15px;
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
         }
 
-        button{
-            width:100%;
-            padding:12px;
-            background:#007BFF;
-            color:white;
-            border:none;
-            border-radius:5px;
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
         }
 
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            font-family: inherit;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
     </style>
-
 </head>
-
 <body>
 
 <div class="box">
-
     <h2>Candidate Registration</h2>
 
-    <form action="/apply_candidate"
-          method="post"
-          enctype="multipart/form-data">
+    <form action="/apply_candidate" method="post" enctype="multipart/form-data">
+        
+        <label>Candidate Name</label>
+        <input type="text" name="candidate_name" placeholder="Enter Full Name" required>
 
-        <input type="text"
-               name="candidate_name"
-               placeholder="Candidate Name"
-               required>
+        <label>Party Name</label>
+        <input type="text" name="party_name" placeholder="Enter Party or Independent" required>
 
-        <input type="text"
-               name="party_name"
-               placeholder="Party Name"
-               required>
-
-        <textarea name="manifesto"
-                  placeholder="Manifesto"
-                  required></textarea>
+        <label>Manifesto</label>
+        <textarea name="manifesto" placeholder="Describe your vision and goals..." required></textarea>
 
         <label>Upload Candidate Photo</label>
+        <input type="file" name="photo" accept="image/*" required>
 
-        <input type="file"
-               name="photo"
-               required>
-
-        <button type="submit">
-            Apply
-        </button>
-
+        <button type="submit">Submit Application</button>
     </form>
 
+    <div class="footer-link">
+        <a href="/register">← Back to Registration</a>
+    </div>
 </div>
 
 </body>

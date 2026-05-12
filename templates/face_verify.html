@@ -5,41 +5,154 @@
 
     <title>Face Verification</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
+
+        *{
+            box-sizing:border-box;
+        }
 
         body{
             font-family:Arial;
             background:#f2f5f9;
-            text-align:center;
+            margin:0;
+            padding:10px;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            min-height:100vh;
         }
 
         .box{
-            width:500px;
+
+            width:100%;
+            max-width:420px;
+
             background:white;
-            margin:auto;
-            margin-top:50px;
-            padding:30px;
+
+            padding:18px;
+
             border-radius:10px;
+
             box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+            text-align:center;
+
+            position:relative;
+
+        }
+
+        h2{
+
+            margin-bottom:15px;
+            font-size:22px;
+
         }
 
         video{
+
             width:100%;
             border-radius:10px;
-        }
+            background:black;
 
-        button{
-            margin-top:20px;
-            padding:12px 20px;
-            background:#007BFF;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
         }
 
         canvas{
+
             display:none;
+
+        }
+
+        button{
+
+            width:100%;
+
+            padding:10px;
+
+            margin-top:15px;
+
+            background:#007BFF;
+
+            color:white;
+
+            border:none;
+
+            border-radius:5px;
+
+            font-size:15px;
+
+            cursor:pointer;
+
+        }
+
+        button:hover{
+
+            background:#0056b3;
+
+        }
+
+        .logout-btn{
+
+            position:absolute;
+
+            top:10px;
+            right:10px;
+
+            background:#dc3545;
+
+            color:white;
+
+            padding:8px 12px;
+
+            border-radius:5px;
+
+            text-decoration:none;
+
+            font-size:13px;
+            font-weight:bold;
+
+        }
+
+        .logout-btn:hover{
+
+            background:#b02a37;
+
+        }
+
+        p{
+
+            font-size:14px;
+            color:#555;
+
+        }
+
+        /* MOBILE */
+
+        @media screen and (max-width:480px){
+
+            .box{
+
+                padding:15px;
+
+            }
+
+            h2{
+
+                font-size:20px;
+
+            }
+
+            button{
+
+                font-size:14px;
+                padding:9px;
+
+            }
+
         }
 
     </style>
@@ -50,25 +163,47 @@
 
 <div class="box">
 
-    <h2>Live Face Verification</h2>
+    <!-- LOGOUT -->
 
-    <video id="video" autoplay></video>
+    <a href="/logout"
+       class="logout-btn">
 
-    <br>
+        Logout
 
-    <button onclick="capture()">
-        Capture & Verify
-    </button>
+    </a>
+
+    <h2>Face Verification</h2>
+
+    <p>
+        Position your face clearly in camera
+    </p>
+
+    <!-- CAMERA -->
+
+    <video id="video"
+           autoplay
+           playsinline>
+
+    </video>
 
     <canvas id="canvas"></canvas>
 
-    <form id="form"
-          action="/face_verify"
-          method="post">
+    <!-- FORM -->
+
+    <form action="/face_verify"
+          method="post"
+          id="faceForm">
 
         <input type="hidden"
                name="image_data"
                id="image_data">
+
+        <button type="button"
+                onclick="captureImage()">
+
+            Capture & Verify
+
+        </button>
 
     </form>
 
@@ -79,37 +214,55 @@
 const video = document.getElementById('video');
 
 navigator.mediaDevices.getUserMedia({
+
     video:true
+
 })
 
-.then(stream => {
+.then(function(stream){
 
     video.srcObject = stream;
 
+})
+
+.catch(function(error){
+
+    alert("Camera access denied!");
+
 });
 
-function capture(){
+function captureImage(){
 
     const canvas = document.getElementById('canvas');
 
     canvas.width = video.videoWidth;
+
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext('2d');
 
     ctx.drawImage(
+
         video,
         0,
         0,
         canvas.width,
         canvas.height
+
     );
 
-    const image = canvas.toDataURL('image/jpeg');
+    const image = canvas.toDataURL(
+        'image/jpeg',
+        0.9
+    );
 
-    document.getElementById('image_data').value = image;
+    document.getElementById(
+        'image_data'
+    ).value = image;
 
-    document.getElementById('form').submit();
+    document.getElementById(
+        'faceForm'
+    ).submit();
 }
 
 </script>

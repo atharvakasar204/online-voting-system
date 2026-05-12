@@ -1,102 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+
+    <title>Login</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
-        /* General Page Layout */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+
+        body{
+            font-family:Arial;
+            background:#f2f5f9;
+            margin:0;
+            padding:0;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            height:100vh;
         }
 
-        /* Form Card Container */
-        .login-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 350px;
-            text-align: center;
+        .box{
+
+            width:90%;
+            max-width:400px;
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:10px;
+
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+
         }
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #333;
+        h2{
+
+            text-align:center;
+            margin-bottom:25px;
+
         }
 
-        /* Form Elements */
-        form {
-            display: flex;
-            flex-direction: column;
+        label{
+
+            font-weight:bold;
+
         }
 
-        input {
-            margin-bottom: 15px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
+        input{
+
+            width:100%;
+
+            padding:12px;
+
+            margin-top:10px;
+            margin-bottom:20px;
+
+            border:1px solid #ccc;
+
+            border-radius:5px;
+
+            font-size:16px;
+
+            box-sizing:border-box;
+
         }
 
-        input:focus {
-            border-color: #007bff;
+        button{
+
+            width:100%;
+
+            padding:12px;
+
+            background:#007BFF;
+
+            color:white;
+
+            border:none;
+
+            border-radius:5px;
+
+            font-size:16px;
+
+            cursor:pointer;
+
         }
 
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
+        button:hover{
+
+            background:#0056b3;
+
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .register-link{
+
+            text-align:center;
+
+            margin-top:20px;
+
         }
 
-        /* Links */
-        .register-link {
-            margin-top: 20px;
-            display: block;
-            font-size: 14px;
-            color: #007bff;
-            text-decoration: none;
+        a{
+
+            text-decoration:none;
+            color:#007BFF;
+
         }
 
-        .register-link:hover {
-            text-decoration: underline;
+        a:hover{
+
+            text-decoration:underline;
+
         }
+
+        /* MOBILE */
+
+        @media screen and (max-width:768px){
+
+            .box{
+
+                padding:20px;
+
+            }
+
+            h2{
+
+                font-size:24px;
+
+            }
+
+            input{
+
+                font-size:15px;
+
+            }
+
+            button{
+
+                font-size:15px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 <body>
 
-    <!-- Wrap your content in this container -->
-    <div class="login-container">
-        <h2>Login</h2>
-        
-        <form action="/login" method="post">
-            <input name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+<div class="box">
 
-        <a href="/register" class="register-link">Don't have an account? Register</a>
+    <h2>Online Voting Login</h2>
+
+    <form action="/login"
+          method="post">
+
+        <!-- USERNAME -->
+
+        <label>Username</label>
+
+        <input type="text"
+               name="username"
+               placeholder="Enter Username"
+               required>
+
+        <!-- PASSWORD -->
+
+        <label>Password</label>
+
+        <input type="password"
+               name="password"
+               placeholder="Enter Password"
+               required>
+
+        <!-- LOGIN BUTTON -->
+
+        <button type="submit">
+
+            Login
+
+        </button>
+
+    </form>
+
+    <!-- REGISTER -->
+
+    <div class="register-link">
+
+        <p>
+
+            Don't have an account?
+
+            <a href="/register">
+
+                Register
+
+            </a>
+
+        </p>
+        <a href="/results" class="view-results-btn">
+        <span>📊 View Live Results</span>
+    </a>
+
     </div>
+
+</div>
 
 </body>
 </html>

@@ -5,6 +5,9 @@
 
     <title>Admin Dashboard</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
 
         body{
@@ -15,14 +18,43 @@
         }
 
         .container{
-            width:90%;
+            width:95%;
             margin:auto;
-            margin-top:30px;
+            margin-top:80px;
         }
 
         h1,h2{
             text-align:center;
         }
+
+        .logout-btn{
+
+            position:absolute;
+
+            top:20px;
+            right:20px;
+
+            background:#dc3545;
+
+            color:white;
+
+            padding:10px 18px;
+
+            border-radius:5px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+        }
+
+        .logout-btn:hover{
+
+            background:#b02a37;
+
+        }
+
+        /* DASHBOARD */
 
         .top-box{
             display:flex;
@@ -39,12 +71,19 @@
             box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
 
+        /* TABLE */
+
+        .table-container{
+            overflow-x:auto;
+        }
+
         table{
             width:100%;
             background:white;
             border-collapse:collapse;
             margin-top:20px;
             box-shadow:0 0 10px rgba(0,0,0,0.1);
+            min-width:800px;
         }
 
         th, td{
@@ -67,6 +106,7 @@
             text-decoration:none;
             color:white;
             border-radius:5px;
+            display:inline-block;
         }
 
         .verify{
@@ -81,13 +121,49 @@
             background:orange;
         }
 
-        .logout{
-            float:right;
-            background:#dc3545;
-            color:white;
-            padding:10px 15px;
-            text-decoration:none;
-            border-radius:5px;
+        /* MOBILE */
+
+        @media screen and (max-width:768px){
+
+            .top-box{
+
+                flex-direction:column;
+
+            }
+
+            .card{
+
+                margin-bottom:15px;
+
+            }
+
+            h1{
+
+                font-size:24px;
+
+            }
+
+            .logout-btn{
+
+                top:10px;
+                right:10px;
+                padding:8px 12px;
+                font-size:14px;
+
+            }
+
+            table{
+
+                font-size:14px;
+
+            }
+
+            th, td{
+
+                padding:10px;
+
+            }
+
         }
 
     </style>
@@ -96,11 +172,13 @@
 
 <body>
 
-<div class="container">
+<a href="/logout" class="logout-btn">
 
-    <a href="/logout" class="logout">
-        Logout
-    </a>
+    Logout
+
+</a>
+
+<div class="container">
 
     <h1>Admin Dashboard</h1>
 
@@ -108,24 +186,35 @@
     <div class="top-box">
 
         <div class="card">
+
             <h2>Total Users</h2>
+
             <h1>{{ total_users }}</h1>
+
         </div>
 
         <div class="card">
+
             <h2>Verified Users</h2>
+
             <h1>{{ verified_users }}</h1>
+
         </div>
 
         <div class="card">
+
             <h2>Total Votes</h2>
+
             <h1>{{ total_votes }}</h1>
+
         </div>
 
     </div>
 
     <!-- USERS -->
     <h2>Registered Users</h2>
+
+    <div class="table-container">
 
     <table>
 
@@ -219,8 +308,12 @@
 
     </table>
 
+    </div>
+
     <!-- CANDIDATES -->
     <h2>Candidate Applications</h2>
+
+    <div class="table-container">
 
     <table>
 
@@ -286,6 +379,8 @@
         {% endfor %}
 
     </table>
+
+    </div>
 
 </div>
 

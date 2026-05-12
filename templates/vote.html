@@ -5,6 +5,9 @@
 
     <title>Vote</title>
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <style>
 
         body{
@@ -14,14 +17,42 @@
             padding:0;
         }
 
+        .logout-btn{
+
+            position:absolute;
+
+            top:20px;
+            right:20px;
+
+            background:#dc3545;
+
+            color:white;
+
+            padding:10px 18px;
+
+            border-radius:5px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+        }
+
+        .logout-btn:hover{
+
+            background:#b02a37;
+
+        }
+
         .container{
             width:90%;
             margin:auto;
-            margin-top:30px;
+            margin-top:80px;
         }
 
         h1{
             text-align:center;
+            margin-bottom:30px;
         }
 
         .candidate-box{
@@ -47,6 +78,14 @@
             flex:1;
         }
 
+        h2{
+            margin:0;
+        }
+
+        h3{
+            color:#555;
+        }
+
         button{
             padding:12px 20px;
             background:#007BFF;
@@ -54,10 +93,59 @@
             border:none;
             border-radius:5px;
             cursor:pointer;
+            font-size:16px;
         }
 
         button:hover{
             background:#0056b3;
+        }
+
+        /* ---------------- MOBILE ---------------- */
+
+        @media screen and (max-width:768px){
+
+            .candidate-box{
+
+                flex-direction:column;
+                text-align:center;
+
+            }
+
+            img{
+
+                width:100px;
+                height:100px;
+
+            }
+
+            button{
+
+                width:100%;
+
+            }
+
+            .logout-btn{
+
+                top:10px;
+                right:10px;
+                padding:8px 12px;
+                font-size:14px;
+
+            }
+
+            .container{
+
+                width:95%;
+                margin-top:70px;
+
+            }
+
+            h1{
+
+                font-size:24px;
+
+            }
+
         }
 
     </style>
@@ -65,6 +153,12 @@
 </head>
 
 <body>
+
+<a href="/logout" class="logout-btn">
+
+    Logout
+
+</a>
 
 <div class="container">
 
