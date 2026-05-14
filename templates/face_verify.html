@@ -1,271 +1,50 @@
-<!DOCTYPE html>
-<html>
+@app.route('/face_verify', methods=['POST'])
+def face_verify():
 
-<head>
+    global DeepFace
 
-    <title>Face Verification</title>
+    if DeepFace is None:
+        from deepface import DeepFace
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    try:
+        if 'user' not in session:
+            return redirect('/login')
 
-    <style>
+        username = session['user']
 
-        *{
-            box-sizing:border-box;
-        }
+        image_data = request.form.get('image_data')
 
-        body{
-            font-family:Arial;
-            background:#f2f5f9;
-            margin:0;
-            padding:10px;
+        if not image_data:
+            return "No webcam image received"
 
-            display:flex;
-            justify-content:center;
-            align-items:center;
+        if "," not in image_data:
+            return "Invalid image format"
 
-            min-height:100vh;
-        }
+        image_data = image_data.split(",")[1]
 
-        .box{
+        live_path = os.path.join(FACE_FOLDER, "live.jpg")
 
-            width:100%;
-            max-width:420px;
+        with open(live_path, "wb") as f:
+            f.write(base64.b64decode(image_data))
 
-            background:white;
+        registered_path = os.path.join(
+            FACE_FOLDER,
+            username + ".jpg"
+        )
 
-            padding:18px;
+        if not os.path.exists(registered_path):
+            return f"Face image missing: {registered_path}"
 
-            border-radius:10px;
+        result = DeepFace.verify(
+            img1_path=registered_path,
+            img2_path=live_path,
+            enforce_detection=False
+        )
 
-            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        if result["verified"]:
+            return redirect('/vote')
 
-            text-align:center;
+        return "Face not matched"
 
-            position:relative;
-
-        }
-
-        h2{
-
-            margin-bottom:15px;
-            font-size:22px;
-
-        }
-
-        video{
-
-            width:100%;
-            border-radius:10px;
-            background:black;
-
-        }
-
-        canvas{
-
-            display:none;
-
-        }
-
-        button{
-
-            width:100%;
-
-            padding:10px;
-
-            margin-top:15px;
-
-            background:#007BFF;
-
-            color:white;
-
-            border:none;
-
-            border-radius:5px;
-
-            font-size:15px;
-
-            cursor:pointer;
-
-        }
-
-        button:hover{
-
-            background:#0056b3;
-
-        }
-
-        .logout-btn{
-
-            position:absolute;
-
-            top:10px;
-            right:10px;
-
-            background:#dc3545;
-
-            color:white;
-
-            padding:8px 12px;
-
-            border-radius:5px;
-
-            text-decoration:none;
-
-            font-size:13px;
-            font-weight:bold;
-
-        }
-
-        .logout-btn:hover{
-
-            background:#b02a37;
-
-        }
-
-        p{
-
-            font-size:14px;
-            color:#555;
-
-        }
-
-        /* MOBILE */
-
-        @media screen and (max-width:480px){
-
-            .box{
-
-                padding:15px;
-
-            }
-
-            h2{
-
-                font-size:20px;
-
-            }
-
-            button{
-
-                font-size:14px;
-                padding:9px;
-
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="box">
-
-    <!-- LOGOUT -->
-
-    <a href="/logout"
-       class="logout-btn">
-
-        Logout
-
-    </a>
-
-    <h2>Face Verification</h2>
-
-    <p>
-        Position your face clearly in camera
-    </p>
-
-    <!-- CAMERA -->
-
-    <video id="video"
-           autoplay
-           playsinline>
-
-    </video>
-
-    <canvas id="canvas"></canvas>
-
-    <!-- FORM -->
-
-    <form action="/face_verify"
-          method="post"
-          id="faceForm">
-
-        <input type="hidden"
-               name="image_data"
-               id="image_data">
-
-        <button type="button"
-                onclick="captureImage()">
-
-            Capture & Verify
-
-        </button>
-
-    </form>
-
-</div>
-
-<script>
-
-const video = document.getElementById('video');
-
-navigator.mediaDevices.getUserMedia({
-
-    video:true
-
-})
-
-.then(function(stream){
-
-    video.srcObject = stream;
-
-})
-
-.catch(function(error){
-
-    alert("Camera access denied!");
-
-});
-
-function captureImage(){
-
-    const canvas = document.getElementById('canvas');
-
-    canvas.width = video.videoWidth;
-
-    canvas.height = video.videoHeight;
-
-    const ctx = canvas.getContext('2d');
-
-    ctx.drawImage(
-
-        video,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-
-    );
-
-    const image = canvas.toDataURL(
-        'image/jpeg',
-        0.9
-    );
-
-    document.getElementById(
-        'image_data'
-    ).value = image;
-
-    document.getElementById(
-        'faceForm'
-    ).submit();
-}
-
-</script>
-
-</body>
-</html>
+    except Exception as e:
+        return f"ERROR: {str(e)}"
