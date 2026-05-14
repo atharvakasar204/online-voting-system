@@ -6,3 +6,4 @@ Pillow==10.3.0
 deepface==0.0.93
 tensorflow-cpu==2.16.1
 Werkzeug==3.0.3
+python-3.10.13
