@@ -1,3 +1,4 @@
+python-3.10.13 ✅
 Flask==3.0.3
 gunicorn==22.0.0
 numpy==1.26.4

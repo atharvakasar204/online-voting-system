@@ -1,9 +1,8 @@
 Flask==3.0.3
 gunicorn==22.0.0
+Werkzeug==3.0.3
 numpy==1.26.4
 opencv-python-headless==4.9.0.80
-Pillow==10.3.0
+Pillow==10.2.0
 deepface==0.0.93
 tensorflow-cpu==2.16.1
-Werkzeug==3.0.3
-python-3.10.13
