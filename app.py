@@ -4,7 +4,7 @@ import os
 import base64
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from deepface import DeepFace
+DeepFace = None
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -282,37 +282,35 @@ def face_verify_page():
 @app.route('/face_verify', methods=['POST'])
 def face_verify():
 
+    global DeepFace
+
+    if DeepFace is None:
+        from deepface import DeepFace
+
     if 'user' not in session:
         return redirect('/login')
 
     try:
-
         username = session['user']
 
-        # GET IMAGE DATA
         image_data = request.form.get('image_data')
 
         if not image_data:
             return "No webcam image received!"
 
-        # CHECK FORMAT
         if "," not in image_data:
             return "Invalid webcam image!"
 
-        # REMOVE BASE64 HEADER
         image_data = image_data.split(",")[1]
 
-        # SAVE LIVE IMAGE
         live_path = os.path.join(
             FACE_FOLDER,
             "live.jpg"
         )
 
         with open(live_path, "wb") as f:
-
             f.write(base64.b64decode(image_data))
 
-        # REGISTERED IMAGE
         registered_path = os.path.join(
             FACE_FOLDER,
             username + ".jpg"
@@ -321,30 +319,20 @@ def face_verify():
         if not os.path.exists(registered_path):
             return "Registered face image missing!"
 
-        # VERIFY FACE
         result = DeepFace.verify(
-
             img1_path=registered_path,
             img2_path=live_path,
-
             detector_backend="opencv",
             enforce_detection=False
-
         )
 
-        # MATCHED
         if result["verified"]:
-
             return redirect('/vote')
-
         else:
-
             return "Face not matched!"
 
     except Exception as e:
-
         return f"Verification Error: {str(e)}"
-
 # ---------------- APPLY CANDIDATE PAGE ----------------
 @app.route('/apply_candidate')
 def apply_candidate_page():
